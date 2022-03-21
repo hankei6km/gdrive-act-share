@@ -69,17 +69,17 @@ jobs:
           email_address: ${{ secrets.SHARE_EMAIL_ADDRESS }}
           send_notification_email: 'false'
 
-      #- name: Share file(email_address is not exist)
-      #  id: share_failed
-      #  continue-on-error: true
-      #  uses: ./
-      #  with:
-      #    file_id: ${{ steps.send.outputs.file_id }}
-      #    type: ${{ secrets.SHARE_TYPE }}
-      #    role: ${{ secrets.SHARE_ROLE }}
-      #    send_notification_email: 'false'
+      - name: Share file(email_address is not exist)
+        id: share_failed
+        continue-on-error: true
+        uses: ./
+        with:
+          file_id: ${{ steps.send.outputs.file_id }}
+          type: ${{ secrets.SHARE_TYPE }}
+          role: ${{ secrets.SHARE_ROLE }}
+          send_notification_email: 'false'
 
-      #- name: Check failure
-      #  run: test "${FAILURE}" = "failure"
-      #  env:
-      #    FAILURE: ${{ steps.share_failed.outcome }}
+      - name: Check failure
+        run: test "${FAILURE}" = "failure"
+        env:
+          FAILURE: ${{ steps.share_failed.outcome }}
