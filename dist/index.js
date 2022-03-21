@@ -55088,35 +55088,25 @@ try {
 /***/ }),
 
 /***/ 6144:
-/***/ ((module, __webpack_exports__, __nccwpck_require__) => {
+/***/ ((module, __unused_webpack___webpack_exports__, __nccwpck_require__) => {
 
 __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__) => {
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   "I": () => (/* binding */ optionalBoolean)
-/* harmony export */ });
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2186);
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var guratan__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(326);
 
 
-function optionalBoolean(s) {
-    const t = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput(s);
-    if (t === undefined || t === 'undefined') {
-        return;
-    }
-    return _actions_core__WEBPACK_IMPORTED_MODULE_0__.getBooleanInput(s);
-}
 try {
     const fileId = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('file_id');
     const type = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('type');
     const role = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('role');
     const emailAddress = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('email_address');
     const domain = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('domain');
-    const moveToNewOwnersRoot = optionalBoolean('move_to_new_owners_root');
-    const allowFileDiscovery = optionalBoolean('allow_file_discovery');
+    const moveToNewOwnersRoot = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getBooleanInput('move_to_new_owners_root');
+    const allowFileDiscovery = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getBooleanInput('allow_file_discovery');
     const view = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('view');
-    const transferOwnership = optionalBoolean('transfer_ownership');
-    const sendNotificationEmail = optionalBoolean('send_notification_email');
+    const transferOwnership = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getBooleanInput('transfer_ownership');
+    const sendNotificationEmail = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getBooleanInput('send_notification_email');
     const emailMessage = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('email_message');
     if (typeof fileId !== 'string' || fileId === '') {
         throw new Error(`file_id: the input is invalid : ${fileId}`);
@@ -55754,6 +55744,4 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ // This entry module used 'module' so it can't be inlined
 /******/ var __webpack_exports__ = __nccwpck_require__(6144);
 /******/ __webpack_exports__ = await __webpack_exports__;
-/******/ var __webpack_exports__optionalBoolean = __webpack_exports__.I;
-/******/ export { __webpack_exports__optionalBoolean as optionalBoolean };
 /******/ 

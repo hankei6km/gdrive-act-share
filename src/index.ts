@@ -1,25 +1,17 @@
 import * as core from '@actions/core'
 import { driveClient, createPermisson } from 'guratan'
 
-export function optionalBoolean(s: string): boolean | undefined {
-  const t = core.getInput(s)
-  if (t === undefined || t === 'undefined') {
-    return
-  }
-  return core.getBooleanInput(s)
-}
-
 try {
   const fileId = core.getInput('file_id')
   const type = core.getInput('type')
   const role = core.getInput('role')
   const emailAddress = core.getInput('email_address')
   const domain = core.getInput('domain')
-  const moveToNewOwnersRoot = optionalBoolean('move_to_new_owners_root')
-  const allowFileDiscovery = optionalBoolean('allow_file_discovery')
+  const moveToNewOwnersRoot = core.getBooleanInput('move_to_new_owners_root')
+  const allowFileDiscovery = core.getBooleanInput('allow_file_discovery')
   const view = core.getInput('view')
-  const transferOwnership = optionalBoolean('transfer_ownership')
-  const sendNotificationEmail = optionalBoolean('send_notification_email')
+  const transferOwnership = core.getBooleanInput('transfer_ownership')
+  const sendNotificationEmail = core.getBooleanInput('send_notification_email')
   const emailMessage = core.getInput('email_message')
   if (typeof fileId !== 'string' || fileId === '') {
     throw new Error(`file_id: the input is invalid : ${fileId}`)
