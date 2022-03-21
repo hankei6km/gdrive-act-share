@@ -67,7 +67,6 @@ jobs:
           type: ${{ secrets.SHARE_TYPE }}
           role: ${{ secrets.SHARE_ROLE }}
           email_address: ${{ secrets.SHARE_EMAIL_ADDRESS }}
-          allow_file_discovery: 'false'
           send_notification_email: 'false'
 
       #- name: Share file(email_address is not exist)
