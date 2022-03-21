@@ -1,0 +1,53 @@
+name: 'Google Drive tools Action - share'
+description: 'This action shares a file to Google Drive'
+inputs:
+  file_id:
+    description: 'The ID of the file or shared drive.'
+    required: true
+    default: ''
+  type:
+    description: 'The type of the grantee.'
+    required: true
+    default: ''
+  role:
+    description: 'The role granted by this permission'
+    required: true
+    default: ''
+  email_address:
+    description: 'The email address of the user or group to which this permission refers.'
+    required: false
+    default: ''
+  domain:
+    description: 'The domain to which this permission refers.	'
+    required: false
+    default: ''
+  move_to_new_owners_root:
+    description: 'This parameter will only take effect if the item is not in a shared drive and the request is attempting to transfer the ownership of the item.'
+    required: false
+    default: ''
+  allow_file_discovery:
+    description: 'Whether the permission allows the file to be discovered through search.'
+    required: false
+    default: ''
+  view:
+    description: 'Whether the permission allows the file to be discovered through search. This is only applicable for permissions of type domain or anyone.'
+    required: false
+    default: ''
+  transfer_ownership:
+    description: 'Whether to transfer ownership to the specified user and downgrade the current owner to a writer.'
+    required: false
+    default: ''
+  send_notification_email:
+    description: 'Whether to send a notification email when sharing to users or groups.'
+    required: false
+    default: ''
+  email_message:
+    description: 'A plain text custom message to include in the notification email.'
+    required: false
+    default: ''
+#outputs:
+#  file_id:
+#    description: 'The ID of the file that is sended into Google Drive'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
