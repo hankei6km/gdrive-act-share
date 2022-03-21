@@ -55101,7 +55101,7 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__) => {
 
 function optionalBoolean(s) {
     const t = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput(s);
-    if (t === undefined || t === 'undefined') {
+    if (t === undefined || t === 'undefined' || t === '') {
         return;
     }
     return _actions_core__WEBPACK_IMPORTED_MODULE_0__.getBooleanInput(s);

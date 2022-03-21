@@ -3,7 +3,7 @@ import { driveClient, createPermisson } from 'guratan'
 
 export function optionalBoolean(s: string): boolean | undefined {
   const t = core.getInput(s)
-  if (t === undefined || t === 'undefined') {
+  if (t === undefined || t === 'undefined' || t === '') {
     return
   }
   return core.getBooleanInput(s)
