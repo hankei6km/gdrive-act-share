@@ -17,7 +17,7 @@ This action shares a file in Google Drive.
 | allow_file_discovery | Whether the permission allows the file to be discovered through search. | `false` |  |
 | view | Whether the permission allows the file to be discovered through search. This is only applicable for permissions of type domain or anyone. | `false` |  |
 | transfer_ownership | Whether to transfer ownership to the specified user and downgrade the current owner to a writer. | `false` |  |
-| send_notification_email | Whether to send a notification email when sharing to users or groups. | `false` |  |
+| send_notification_email | Whether to send a notification email when sharing to users or groups. | `false` | true |
 | email_message | A plain text custom message to include in the notification email. | `false` |  |
 
 
