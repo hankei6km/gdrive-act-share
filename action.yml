@@ -24,11 +24,9 @@ inputs:
   move_to_new_owners_root:
     description: 'This parameter will only take effect if the item is not in a shared drive and the request is attempting to transfer the ownership of the item.'
     required: false
-    default: false
   allow_file_discovery:
     description: 'Whether the permission allows the file to be discovered through search.'
     required: false
-    default: false
   view:
     description: 'Whether the permission allows the file to be discovered through search. This is only applicable for permissions of type domain or anyone.'
     required: false
@@ -36,11 +34,9 @@ inputs:
   transfer_ownership:
     description: 'Whether to transfer ownership to the specified user and downgrade the current owner to a writer.'
     required: false
-    default: false
   send_notification_email:
     description: 'Whether to send a notification email when sharing to users or groups.'
     required: false
-    default: true
   email_message:
     description: 'A plain text custom message to include in the notification email.'
     required: false
