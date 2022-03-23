@@ -33,6 +33,8 @@ try {
 
   const permission_id = await createPermisson(driveClient(), {
     fileId,
+    parentId: '',
+    destFileName: '',
     type,
     role,
     emailAddress,
