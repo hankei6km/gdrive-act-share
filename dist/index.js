@@ -55129,6 +55129,8 @@ try {
     }
     const permission_id = await (0,guratan__WEBPACK_IMPORTED_MODULE_1__/* .createPermisson */ .o8)((0,guratan__WEBPACK_IMPORTED_MODULE_1__/* .driveClient */ .GQ)(), {
         fileId,
+        parentId: '',
+        destFileName: '',
         type,
         role,
         emailAddress,
@@ -55330,7 +55332,7 @@ var build = __nccwpck_require__(2476);
  * @param s - value string.
  * @returns result of validation.
  */
-function tdrive_validateQueryValue(s) {
+function validateQueryValue(s) {
     if (s.indexOf("'") >= 0) {
         return false;
     }
@@ -55478,8 +55480,8 @@ async function updateFile(drive, opts) {
  * @returns id of file in Google Drive
  */
 async function sendFile(drive, opts) {
-    const { parentId, destFileName, srcFileName, destMimeType, srcMimeType } = opts;
-    const fileId = await getFileId(drive, parentId, destFileName);
+    const { fileId: inFileId, parentId, destFileName, srcFileName, destMimeType, srcMimeType } = opts;
+    let fileId = inFileId !== '' ? inFileId : await getFileId(drive, parentId, destFileName);
     if (fileId === '') {
         return uploadFile(drive, {
             parentId,
@@ -55493,6 +55495,7 @@ async function sendFile(drive, opts) {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/guratan/dist/tshare.js
+
 class CreatePermissonError extends Error {
     constructor(message) {
         //https://stackoverflow.com/questions/41102060/typescript-extending-error-class
@@ -55516,7 +55519,8 @@ class UpdatePermissonError extends Error {
 async function createPermisson(drive, opts) {
     let created = false;
     try {
-        const { fileId, type, role, emailAddress, domain, view, allowFileDiscovery, moveToNewOwnersRoot, transferOwnership, sendNotificationEmail, emailMessage } = opts;
+        const { fileId: inFileId, parentId, destFileName, type, role, emailAddress, domain, view, allowFileDiscovery, moveToNewOwnersRoot, transferOwnership, sendNotificationEmail, emailMessage } = opts;
+        const fileId = inFileId || (await getFileId(drive, parentId, destFileName));
         const createParams = {
             requestBody: {
                 type,
