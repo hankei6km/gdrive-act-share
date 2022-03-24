@@ -55129,9 +55129,6 @@ try {
     if (typeof destFileName !== 'string') {
         throw new Error(`dest_file_name: the input is invalid : ${destFileName}`);
     }
-    if (typeof fileId !== 'string' || fileId === '') {
-        throw new Error(`file_id: the input is invalid : ${fileId}`);
-    }
     if (typeof type !== 'string' || type === '') {
         throw new Error(`type: the input is invalid : ${type}`);
     }
