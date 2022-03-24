@@ -55108,6 +55108,8 @@ function optionalBoolean(s) {
 }
 try {
     const fileId = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('file_id');
+    const parentId = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('parent_id');
+    const destFileName = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('dest_file_name');
     const type = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('type');
     const role = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('role');
     const emailAddress = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('email_address');
@@ -55118,8 +55120,14 @@ try {
     const transferOwnership = optionalBoolean('transfer_ownership');
     const sendNotificationEmail = optionalBoolean('send_notification_email');
     const emailMessage = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('email_message');
-    if (typeof fileId !== 'string' || fileId === '') {
+    if (typeof fileId !== 'string') {
         throw new Error(`file_id: the input is invalid : ${fileId}`);
+    }
+    if (typeof parentId !== 'string') {
+        throw new Error(`parent_id: the input is invalid : ${parentId}`);
+    }
+    if (typeof destFileName !== 'string') {
+        throw new Error(`dest_file_name: the input is invalid : ${destFileName}`);
     }
     if (typeof type !== 'string' || type === '') {
         throw new Error(`type: the input is invalid : ${type}`);
@@ -55129,8 +55137,8 @@ try {
     }
     const permission_id = await (0,guratan__WEBPACK_IMPORTED_MODULE_1__/* .createPermisson */ .o8)((0,guratan__WEBPACK_IMPORTED_MODULE_1__/* .driveClient */ .GQ)(), {
         fileId,
-        parentId: '',
-        destFileName: '',
+        parentId,
+        destFileName,
         type,
         role,
         emailAddress,

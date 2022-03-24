@@ -3,7 +3,15 @@ description: 'This action shares a file to Google Drive'
 inputs:
   file_id:
     description: 'The ID of the file or shared drive.'
-    required: true
+    required: false
+    default: ''
+  parent_id:
+    description: 'The ID of the parent folders in remote'
+    required: false
+    default: ''
+  dest_file_name:
+    description: 'The name of the file in remote'
+    required: false
     default: ''
   type:
     description: 'The type of the grantee.'

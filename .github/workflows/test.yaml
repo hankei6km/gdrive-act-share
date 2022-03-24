@@ -69,6 +69,16 @@ jobs:
           email_address: ${{ secrets.SHARE_EMAIL_ADDRESS }}
           send_notification_email: 'false'
 
+      - name: Share file(normal end with dest_file_name)
+        uses: ./
+        with:
+          parent_id: ${{ secrets.PARENT_ID }}
+          dest_file_name: gdrive-act-share-test-readme.md
+          type: ${{ secrets.SHARE_TYPE }}
+          role: ${{ secrets.SHARE_ROLE }}
+          email_address: ${{ secrets.SHARE_EMAIL_ADDRESS }}
+          send_notification_email: 'false'
+
       - name: Share file(email_address is not exist)
         id: share_failed
         continue-on-error: true

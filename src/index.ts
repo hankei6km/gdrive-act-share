@@ -11,6 +11,8 @@ export function optionalBoolean(s: string): boolean | undefined {
 
 try {
   const fileId = core.getInput('file_id')
+  const parentId = core.getInput('parent_id')
+  const destFileName = core.getInput('dest_file_name')
   const type = core.getInput('type')
   const role = core.getInput('role')
   const emailAddress = core.getInput('email_address')
@@ -21,8 +23,14 @@ try {
   const transferOwnership = optionalBoolean('transfer_ownership')
   const sendNotificationEmail = optionalBoolean('send_notification_email')
   const emailMessage = core.getInput('email_message')
-  if (typeof fileId !== 'string' || fileId === '') {
+  if (typeof fileId !== 'string') {
     throw new Error(`file_id: the input is invalid : ${fileId}`)
+  }
+  if (typeof parentId !== 'string') {
+    throw new Error(`parent_id: the input is invalid : ${parentId}`)
+  }
+  if (typeof destFileName !== 'string') {
+    throw new Error(`dest_file_name: the input is invalid : ${destFileName}`)
   }
   if (typeof type !== 'string' || type === '') {
     throw new Error(`type: the input is invalid : ${type}`)
@@ -33,8 +41,8 @@ try {
 
   const permission_id = await createPermisson(driveClient(), {
     fileId,
-    parentId: '',
-    destFileName: '',
+    parentId,
+    destFileName,
     type,
     role,
     emailAddress,

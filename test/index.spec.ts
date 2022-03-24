@@ -13,6 +13,8 @@ import * as path from 'path'
 
 const saveInputs = {
   fileId: process.env['INPUT_FILE_ID'],
+  parentId: process.env['INPUT_PARENT_ID'],
+  destFileName: process.env['INPUT_DEST_FILE_NAME'],
   type: process.env['INPUT_TYPE'],
   role: process.env['INPUT_ROLE'],
   emailAddress: process.env['INPUT_EMAIL_ADDRESS'],
@@ -26,6 +28,8 @@ const saveInputs = {
 }
 beforeEach(() => {
   process.env['INPUT_FILE_ID'] = saveInputs.fileId
+  process.env['INPUT_PARENT_ID'] = saveInputs.parentId
+  process.env['INPUT_DEST_FILE_NAME'] = saveInputs.destFileName
   process.env['INPUT_TYPE'] = saveInputs.type
   process.env['INPUT_ROLE'] = saveInputs.role
   process.env['INPUT_EMAIL_ADDRESS'] = saveInputs.emailAddress
@@ -40,6 +44,8 @@ beforeEach(() => {
 })
 afterAll(() => {
   process.env['INPUT_FILE_ID'] = saveInputs.fileId
+  process.env['INPUT_PARENT_ID'] = saveInputs.parentId
+  process.env['INPUT_DEST_FILE_NAME'] = saveInputs.destFileName
   process.env['INPUT_TYPE'] = saveInputs.type
   process.env['INPUT_ROLE'] = saveInputs.role
   process.env['INPUT_EMAIL_ADDRESS'] = saveInputs.emailAddress
@@ -56,27 +62,6 @@ afterAll(() => {
 describe('index', () => {
   const __dirname = path.dirname(fileURLToPath(import.meta.url))
   const ip = path.join(__dirname, '..', 'dist', 'index.js')
-  it('should print error message(fileId = blank)', async () => {
-    process.env['INPUT_FILE_ID'] = ''
-    process.env['INPUT_TYPE'] = 'type'
-    process.env['INPUT_ROLE'] = 'role'
-    process.env['INPUT_EMAIL_ADDRESS'] = 'emailAddress'
-    process.env['INPUT_DOMAIN'] = 'domain'
-    process.env['INPUT_MOVE_TO_NEW_OWNERS_ROOT'] = 'false'
-    process.env['INPUT_ALLOW_FILE_DISCOVERY'] = 'false'
-    process.env['INPUT_VIEW'] = ''
-    process.env['INPUT_TRANSFER_OWNERSHIP'] = 'false'
-    process.env['INPUT_SEND_NOTIFICATION_EMAIL'] = 'true'
-    process.env['INPUT_EMAIL_MESSAGE'] = ''
-    const [stdout, stderr] = await new Promise((resolve) => {
-      cp.exec(`node ${ip}`, { env: process.env }, (_err, stdout, stderr) => {
-        resolve([stdout.toString(), stderr.toString()])
-      })
-    })
-    expect(stdout).toMatch(/\:\:error\:\:file_id\: the input is invalid \:/)
-    expect(stderr).toEqual('')
-  })
-
   it('should print error message(type = blank)', async () => {
     process.env['INPUT_FILE_ID'] = 'parentId'
     process.env['INPUT_TYPE'] = ''
@@ -100,6 +85,8 @@ describe('index', () => {
 
   it('should print error message(role = blank)', async () => {
     process.env['INPUT_FILE_ID'] = 'parentId'
+    process.env['INPUT_PARENT_ID'] = 'parentId'
+    process.env['INPUT_DEST_FILE_NAME'] = 'destFileName'
     process.env['INPUT_TYPE'] = 'type'
     process.env['INPUT_ROLE'] = ''
     process.env['INPUT_EMAIL_ADDRESS'] = 'emailAddress'
