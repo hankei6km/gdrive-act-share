@@ -8,7 +8,9 @@ This action shares a file in Google Drive.
 
 | parameter | description | required | default |
 | - | - | - | - |
-| file_id | The ID of the file or shared drive. | `true` |  |
+| file_id | The ID of the file or shared drive. | `false` |  |
+| parent_id | The ID of the parent folders in remote | `false` |  |
+| dest_file_name | The name of the file in remote | `false` |  |
 | type | The type of the grantee. | `true` |  |
 | role | The role granted by this permission | `true` |  |
 | email_address | The email address of the user or group to which this permission refers. | `false` |  |
