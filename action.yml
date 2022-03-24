@@ -10,7 +10,7 @@ inputs:
     required: false
     default: ''
   dest_file_name:
-    description: 'The name of the file in remote'
+    description: 'The name of the file in remote. When there are multiple files with the same parent id and the same name, only one of them is applied.'
     required: false
     default: ''
   type:
