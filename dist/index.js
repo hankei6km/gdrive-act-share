@@ -55096,7 +55096,7 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__) => {
 /* harmony export */ });
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2186);
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var guratan__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(326);
+/* harmony import */ var guratan__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(6544);
 
 
 function optionalBoolean(s) {
@@ -55315,7 +55315,7 @@ module.exports = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("zlib");
 
 /***/ }),
 
-/***/ 326:
+/***/ 6544:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
 
 
@@ -55325,7 +55325,7 @@ __nccwpck_require__.d(__webpack_exports__, {
   "GQ": () => (/* reexport */ driveClient)
 });
 
-// UNUSED EXPORTS: sendFile
+// UNUSED EXPORTS: recvFile, sendFile
 
 // EXTERNAL MODULE: ./node_modules/google-auth-library/build/src/index.js
 var src = __nccwpck_require__(810);
@@ -55334,6 +55334,45 @@ var build = __nccwpck_require__(2476);
 ;// CONCATENATED MODULE: ./node_modules/guratan/dist/tdrive.js
 
 
+class tdrive_GetFileIdError extends Error {
+    constructor(message) {
+        //https://stackoverflow.com/questions/41102060/typescript-extending-error-class
+        super(message);
+        Object.setPrototypeOf(this, tdrive_GetFileIdError.prototype);
+    }
+}
+/**
+ * Get file id in spesiced parent.
+ * @param drive - drive instance.
+ * @param parentId  - id of folder in Google Deive.
+ * @param fileName  - file name.
+ * @returns id of file or blank(when file is not found)
+ */
+async function tdrive_getFileId(drive, parentId, fileName) {
+    try {
+        if (validateQueryValue(parentId) === false) {
+            throw new tdrive_GetFileIdError(`Invalid paretnt id : ${parentId}`);
+        }
+        if (validateQueryValue(fileName) === false) {
+            throw new tdrive_GetFileIdError(`Invalid file name : ${fileName}`);
+        }
+        const list = await drive.files.list({
+            pageSize: 10,
+            q: `'${parentId}' in parents and name = '${fileName}'`,
+            fields: 'files(id, name)'
+        });
+        if (list.data.files && list.data.files.length > 0) {
+            return list.data.files[0].id || '';
+        }
+        return '';
+    }
+    catch (err) {
+        if (err.errors) {
+            throw new tdrive_GetFileIdError(JSON.stringify(err.errors));
+        }
+        throw err;
+    }
+}
 /**
  * Validate value that is used in query parameter.
  * return false if value has included "'">
@@ -55362,17 +55401,13 @@ function driveClient() {
 var external_path_ = __nccwpck_require__(1017);
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(7147);
+// EXTERNAL MODULE: external "util"
+var external_util_ = __nccwpck_require__(3837);
 ;// CONCATENATED MODULE: ./node_modules/guratan/dist/tsend.js
 
 
 
-class GetFileIdError extends Error {
-    constructor(message) {
-        //https://stackoverflow.com/questions/41102060/typescript-extending-error-class
-        super(message);
-        Object.setPrototypeOf(this, GetFileIdError.prototype);
-    }
-}
+
 class UploadFileError extends Error {
     constructor(message) {
         //https://stackoverflow.com/questions/41102060/typescript-extending-error-class
@@ -55388,68 +55423,47 @@ class UpdateFileError extends Error {
     }
 }
 /**
- * Get file id in spesiced parent.
- * @param drive - drive instance.
- * @param parentId  - id of folder in Google Deive.
- * @param fileName  - file name.
- * @returns id of file or blank(when file is not found)
- */
-async function getFileId(drive, parentId, fileName) {
-    try {
-        if (validateQueryValue(parentId) === false) {
-            throw new GetFileIdError(`Invalid paretnt id : ${parentId}`);
-        }
-        if (validateQueryValue(fileName) === false) {
-            throw new GetFileIdError(`Invalid file name : ${fileName}`);
-        }
-        const list = await drive.files.list({
-            pageSize: 10,
-            q: `'${parentId}' in parents and name = '${fileName}'`,
-            fields: 'files(id, name)'
-        });
-        if (list.data.files && list.data.files.length > 0) {
-            return list.data.files[0].id || '';
-        }
-        return '';
-    }
-    catch (err) {
-        if (err.errors) {
-            throw new GetFileIdError(JSON.stringify(err.errors));
-        }
-        throw err;
-    }
-}
-/**
  * Create file using by source file into Google Drive.
  * @param drive - drive instance.
  * @param opts - options.
  * @returns Print the id of the file that is sended into remote
  */
 async function uploadFile(drive, opts) {
+    let ret = '';
     try {
         const { parentId, destFileName, srcFileName, destMimeType, srcMimeType } = opts;
-        const params = {
-            requestBody: {
-                name: path.basename(destFileName),
-                parents: [parentId]
-            },
-            media: {
-                body: fs.createReadStream(srcFileName)
-            },
-            fields: 'id'
-        };
-        if (destMimeType) {
-            params.requestBody.mimeType = destMimeType;
+        const srcStream = fs.createReadStream(srcFileName);
+        try {
+            const params = {
+                requestBody: {
+                    name: path.basename(destFileName),
+                    parents: [parentId]
+                },
+                media: {
+                    body: srcStream
+                },
+                fields: 'id'
+            };
+            if (destMimeType) {
+                params.requestBody.mimeType = destMimeType;
+            }
+            if (srcMimeType) {
+                params.media.mimeType = srcMimeType;
+            }
+            const res = await drive.files.create(params);
+            ret = res.data.id || '';
         }
-        if (srcMimeType) {
-            params.media.mimeType = srcMimeType;
+        catch (err) {
+            throw new UploadFileError(JSON.stringify(err.errors));
         }
-        const res = await drive.files.create(params);
-        return res.data.id || '';
+        finally {
+            await promisify(srcStream.close.bind(srcStream))();
+        }
     }
     catch (err) {
-        throw new UploadFileError(JSON.stringify(err.errors));
+        throw err;
     }
+    return ret;
 }
 /**
  * Update file using by source file into Google Drive.
@@ -55458,28 +55472,39 @@ async function uploadFile(drive, opts) {
  * @returns id of file in Google Drive
  */
 async function updateFile(drive, opts) {
+    let ret = '';
     try {
         const { fileId, srcFileName, destMimeType, srcMimeType } = opts;
-        const params = {
-            fileId,
-            requestBody: {},
-            media: {
-                body: fs.createReadStream(srcFileName)
-            },
-            fields: 'id'
-        };
-        if (destMimeType) {
-            params.requestBody.mimeType = destMimeType;
+        const srcStream = fs.createReadStream(srcFileName);
+        try {
+            const params = {
+                fileId,
+                requestBody: {},
+                media: {
+                    body: srcStream
+                },
+                fields: 'id'
+            };
+            if (destMimeType) {
+                params.requestBody.mimeType = destMimeType;
+            }
+            if (srcMimeType) {
+                params.media.mimeType = srcMimeType;
+            }
+            const res = await drive.files.update(params);
+            ret = res.data.id || '';
         }
-        if (srcMimeType) {
-            params.media.mimeType = srcMimeType;
+        catch (err) {
+            throw new UpdateFileError(JSON.stringify(err.errors));
         }
-        const res = await drive.files.update(params);
-        return res.data.id || '';
+        finally {
+            await promisify(srcStream.close.bind(srcStream))();
+        }
     }
     catch (err) {
-        throw new UpdateFileError(JSON.stringify(err.errors));
+        throw err;
     }
+    return ret;
 }
 /**
  * Send file using by source file into Google Drive.
@@ -55500,6 +55525,87 @@ async function sendFile(drive, opts) {
         });
     }
     return updateFile(drive, { fileId, srcFileName, destMimeType, srcMimeType });
+}
+
+;// CONCATENATED MODULE: ./node_modules/guratan/dist/trecv.js
+
+
+
+class DownloadFileError extends Error {
+    constructor(message) {
+        //https://stackoverflow.com/questions/41102060/typescript-extending-error-class
+        super(message);
+        Object.setPrototypeOf(this, DownloadFileError.prototype);
+    }
+}
+/**
+ * Download the file from Google Drive to the locale file
+ * @param drive - drive instance.
+ * @param opts - options.
+ * @returns
+ */
+async function downloadFile(drive, opts) {
+    let ret;
+    try {
+        const { fileId, destFileName, destMimeType } = opts;
+        const dest = fs.createWriteStream(destFileName);
+        try {
+            if (destMimeType) {
+                const params = {
+                    fileId,
+                    mimeType: destMimeType
+                };
+                const res = await drive.files.export(params, { responseType: 'stream' });
+                for await (const c of res.data) {
+                    dest.write(c);
+                }
+            }
+            else {
+                const params = {
+                    fileId,
+                    alt: 'media'
+                };
+                const res = await drive.files.get(params, { responseType: 'stream' });
+                for await (const c of res.data) {
+                    dest.write(c);
+                }
+            }
+        }
+        catch (err) {
+            if (err.erros) {
+                throw new DownloadFileError(JSON.stringify(err.errors));
+            }
+            if (err.response?.status) {
+                throw new DownloadFileError(`status:${err.response.status}\nstatusText:${err.response.statusText}`);
+            }
+            throw new DownloadFileError(JSON.stringify(err));
+        }
+        finally {
+            // return promisify(dest.close.bind(dest))()  ここで return すると常に undfeind になる
+            ret = promisify(dest.close.bind(dest))();
+        }
+    }
+    catch (err) {
+        throw err;
+    }
+    return ret;
+}
+/**
+ * Receive the file from Google Drive to the locale file
+ * @param drive - drive instance.
+ * @param opts - options.
+ * @returns id of file in Google Drive
+ */
+async function recvFile(drive, opts) {
+    const { fileId: inFileId, parentId, srcFileName, destFileName, destMimeType } = opts;
+    let fileId = inFileId !== '' ? inFileId : await getFileId(drive, parentId, srcFileName);
+    if (fileId === '') {
+        throw new GetFileIdError(
+        // `The srouce file not found in paretnt id : ${srcFileName}, ${parentId}`
+        `The srouce file not found`);
+    }
+    await downloadFile(drive, { fileId, destFileName, destMimeType });
+    return fileId;
 }
 
 ;// CONCATENATED MODULE: ./node_modules/guratan/dist/tshare.js
@@ -55528,7 +55634,7 @@ async function createPermisson(drive, opts) {
     let created = false;
     try {
         const { fileId: inFileId, parentId, destFileName, type, role, emailAddress, domain, view, allowFileDiscovery, moveToNewOwnersRoot, transferOwnership, sendNotificationEmail, emailMessage } = opts;
-        const fileId = inFileId || (await getFileId(drive, parentId, destFileName));
+        const fileId = inFileId || (await tdrive_getFileId(drive, parentId, destFileName));
         const createParams = {
             requestBody: {
                 type,
@@ -55591,6 +55697,7 @@ async function createPermisson(drive, opts) {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/guratan/dist/index.js
+
 
 
 
