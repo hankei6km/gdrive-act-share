@@ -55390,7 +55390,7 @@ function validateQueryValue(s) {
  * @returns instance of drive.
  */
 function driveClient() {
-    const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
+    const SCOPES = ['https://www.googleapis.com/auth/drive'];
     const auth = new src.GoogleAuth({
         scopes: SCOPES
     });
@@ -55572,13 +55572,13 @@ async function downloadFile(drive, opts) {
             }
         }
         catch (err) {
-            if (err.erros) {
+            if (err.errors) {
                 throw new DownloadFileError(JSON.stringify(err.errors));
             }
             if (err.response?.status) {
                 throw new DownloadFileError(`status:${err.response.status}\nstatusText:${err.response.statusText}`);
             }
-            throw new DownloadFileError(JSON.stringify(err));
+            throw new DownloadFileError(err);
         }
         finally {
             // return promisify(dest.close.bind(dest))()  ここで return すると常に undfeind になる
