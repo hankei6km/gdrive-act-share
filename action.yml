@@ -58,4 +58,4 @@ inputs:
 #    description: 'The ID of the file that is sended into Google Drive'
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  main: 'dist/index.mjs'

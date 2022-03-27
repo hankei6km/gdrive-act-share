@@ -33,19 +33,12 @@ jobs:
       - name: Install modules
         run: npm ci
 
-      - name: Run build
+      - name: Run tests
         run: npm run test:build
 
       - name: Diff built files
         run: |
-          git diff --exit-code --quiet dist/index.js
-          git diff --exit-code --quiet dist/index.d.ts
-          git diff --exit-code --quiet dist/licenses.txt
-          git diff --exit-code --quiet dist/package.json
           git diff --exit-code --quiet README.md
-
-      - name: Run tests
-        run: npm run test:build
 
   test-main:
     permissions:
@@ -55,6 +48,23 @@ jobs:
     name: Test main
     steps:
       - uses: actions/checkout@v3
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-act-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-act-${{ env.cache-name }}-
+            ${{ runner.os }}-act-
+
+      - name: Install modules
+        run: npm ci
+
+      - name: Build
+        run: npm run build
 
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
