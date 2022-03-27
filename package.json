@@ -12,13 +12,13 @@
     "url": "https://github.com/hankei6km/gdrive-act-share"
   },
   "keywords": [],
-  "main": "",
+  "main": "dist/index.mjs",
   "type": "module",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "npm run clean && ncc build src/index.ts --license licenses.txt && rimraf dist/test && mv dist/src/* dist/ && rimraf dist/src && npm run gen-readme",
+    "build": "npm run clean && ncc build src/index.ts --license licenses.txt && rimraf dist/test && mv dist/src/* dist/ && rimraf dist/src && mv dist/index.js dist/index.mjs && npm run gen-readme",
     "gen-readme": "bash scripts/gen-readme.sh",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:build": "npm run build && npm run test",

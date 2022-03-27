@@ -82,5 +82,7 @@ typings/
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 
+dist/
+
 # Ignore generated credentials from google-github-actions/auth
 gha-creds-*.json
