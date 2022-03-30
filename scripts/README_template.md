@@ -29,7 +29,7 @@ This action shares a file in Google Drive.
     src-file-name: ${{ secrets.SRC_FILE_NAME }}
 
 - name: Share file
-  uses: : hankei6km/gdrive-act-share@v0
+  uses: : hankei6km/gdrive-act-share@v:CUR_VER
   with:
     file_id: ${{ steps.send.outputs.file_id }}
     type: ${{ secrets.SHARE_TYPE }}
