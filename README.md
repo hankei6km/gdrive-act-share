@@ -46,7 +46,7 @@ This action is an `node16` action.
     service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
 - name: Share file
-  uses: : hankei6km/gdrive-act-share@v0.3.2
+  uses: : hankei6km/gdrive-act-share@v0.3.3
   with:
     file_id: ${{ steps.send.outputs.file_id }}
     type: ${{ secrets.SHARE_TYPE }}
