@@ -30,6 +30,11 @@ This action shares a file in Google Drive.
     send_notification_email: 'false'
 ```
 
+## Related
+
+- [Google Drive tools Action - send](https://github.com/hankei6km/gdrive-act-send)
+- [Google Drive tools Action - recv](https://github.com/hankei6km/gdrive-act-recv)
+
 ## Licenses
 
 MIT License
