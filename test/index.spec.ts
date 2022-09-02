@@ -74,7 +74,7 @@ describe('index', () => {
     process.env['INPUT_TRANSFER_OWNERSHIP'] = 'false'
     process.env['INPUT_SEND_NOTIFICATION_EMAIL'] = 'true'
     process.env['INPUT_EMAIL_MESSAGE'] = ''
-    const [stdout, stderr] = await new Promise((resolve) => {
+    const [stdout, stderr]: [string, string] = await new Promise((resolve) => {
       cp.exec(`node ${ip}`, { env: process.env }, (_err, stdout, stderr) => {
         resolve([stdout.toString(), stderr.toString()])
       })
@@ -97,7 +97,7 @@ describe('index', () => {
     process.env['INPUT_TRANSFER_OWNERSHIP'] = 'false'
     process.env['INPUT_SEND_NOTIFICATION_EMAIL'] = 'true'
     process.env['INPUT_EMAIL_MESSAGE'] = ''
-    const [stdout, stderr] = await new Promise((resolve) => {
+    const [stdout, stderr]: [string, string] = await new Promise((resolve) => {
       cp.exec(`node ${ip}`, { env: process.env }, (_err, stdout, stderr) => {
         resolve([stdout.toString(), stderr.toString()])
       })
