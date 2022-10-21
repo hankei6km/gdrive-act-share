@@ -13,7 +13,7 @@ This action shares a file in Google Drive.
 ## Inputs
 
 | parameter | description | required | default |
-| - | - | - | - |
+| --- | --- | --- | --- |
 | file_id | The ID of the file or shared drive. | `false` |  |
 | parent_id | The ID of the parent folders in remote | `false` |  |
 | dest_file_name | The name of the file in remote. When there are multiple files with the same parent id and the same name, only one of them is applied. | `false` |  |
