@@ -34,7 +34,7 @@
     "@octokit/graphql-schema": "^12.34.0",
     "@types/jest": "^27.5.0",
     "@types/node": "^16.11.34",
-    "@vercel/ncc": "^0.34.0",
+    "@vercel/ncc": "^0.36.0",
     "action-docs": "^1.1.0",
     "jest": "^27.4.7",
     "rimraf": "^3.0.2",
