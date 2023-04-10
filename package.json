@@ -31,7 +31,7 @@
     "guratan": "^0.7.0"
   },
   "devDependencies": {
-    "@octokit/graphql-schema": "^13.7.0",
+    "@octokit/graphql-schema": "^13.10.0",
     "@types/jest": "^27.5.0",
     "@types/node": "^16.11.34",
     "@vercel/ncc": "^0.36.1",
