@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@octokit/graphql-schema": "^14.42.0",
-    "@types/jest": "^29.5.8",
+    "@types/jest": "^29.5.10",
     "@types/node": "^16.11.34",
     "@vercel/ncc": "^0.38.1",
     "action-docs": "^1.2.0",
