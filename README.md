@@ -12,21 +12,21 @@ This action shares a file in Google Drive.
 
 ## Inputs
 
-| parameter | description | required | default |
+| name | description | required | default |
 | --- | --- | --- | --- |
-| file_id | The ID of the file or shared drive. | `false` |  |
-| parent_id | The ID of the parent folders in remote | `false` |  |
-| dest_file_name | The name of the file in remote. When there are multiple files with the same parent id and the same name, only one of them is applied. | `false` |  |
-| type | The type of the grantee. | `true` |  |
-| role | The role granted by this permission | `true` |  |
-| email_address | The email address of the user or group to which this permission refers. | `false` |  |
-| domain | The domain to which this permission refers.	 | `false` |  |
-| move_to_new_owners_root | This parameter will only take effect if the item is not in a shared drive and the request is attempting to transfer the ownership of the item. | `false` |  |
-| allow_file_discovery | Whether the permission allows the file to be discovered through search. | `false` |  |
-| view | Whether the permission allows the file to be discovered through search. This is only applicable for permissions of type domain or anyone. | `false` |  |
-| transfer_ownership | Whether to transfer ownership to the specified user and downgrade the current owner to a writer. | `false` |  |
-| send_notification_email | Whether to send a notification email when sharing to users or groups. | `false` |  |
-| email_message | A plain text custom message to include in the notification email. | `false` |  |
+| `file_id` | <p>The ID of the file or shared drive.</p> | `false` | `""` |
+| `parent_id` | <p>The ID of the parent folders in remote</p> | `false` | `""` |
+| `dest_file_name` | <p>The name of the file in remote. When there are multiple files with the same parent id and the same name, only one of them is applied.</p> | `false` | `""` |
+| `type` | <p>The type of the grantee.</p> | `true` | `""` |
+| `role` | <p>The role granted by this permission</p> | `true` | `""` |
+| `email_address` | <p>The email address of the user or group to which this permission refers.</p> | `false` | `""` |
+| `domain` | <p>The domain to which this permission refers.    </p> | `false` | `""` |
+| `move_to_new_owners_root` | <p>This parameter will only take effect if the item is not in a shared drive and the request is attempting to transfer the ownership of the item.</p> | `false` | `""` |
+| `allow_file_discovery` | <p>Whether the permission allows the file to be discovered through search.</p> | `false` | `""` |
+| `view` | <p>Whether the permission allows the file to be discovered through search. This is only applicable for permissions of type domain or anyone.</p> | `false` | `""` |
+| `transfer_ownership` | <p>Whether to transfer ownership to the specified user and downgrade the current owner to a writer.</p> | `false` | `""` |
+| `send_notification_email` | <p>Whether to send a notification email when sharing to users or groups.</p> | `false` | `""` |
+| `email_message` | <p>A plain text custom message to include in the notification email.</p> | `false` | `""` |
 
 
 ## Runs
