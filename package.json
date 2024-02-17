@@ -1,6 +1,6 @@
 {
   "name": "@hankei6km/gdrive-act-share",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "This action shares a file in Google Drive.",
   "author": "hankei6km <hankei6km@gmail.com> (https://github.com/hankei6km)",
   "license": "MIT",
