@@ -1,9 +1,9 @@
 name: Test action code
 on:
+  pull_request:
   push:
     branches:
-      - '**'
-      #- '!main'
+      - 'main'
     tags:
       - '!v*'
 
