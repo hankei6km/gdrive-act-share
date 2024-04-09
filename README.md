@@ -8,8 +8,6 @@ This action shares a file in Google Drive.
 
 **Required** path to Service Account Credentials JSON file.
 
-
-
 ## Inputs
 
 | name | description | required | default |
@@ -29,11 +27,10 @@ This action shares a file in Google Drive.
 | `email_message` | <p>A plain text custom message to include in the notification email.</p> | `false` | `""` |
 
 
+
 ## Runs
 
 This action is a `node20` action.
-
-
 
 ## Example usage
 
