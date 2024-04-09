@@ -8,7 +8,6 @@ This action shares a file in Google Drive.
 
 **Required** path to Service Account Credentials JSON file.
 
-<!-- action-docs-inputs source="action.yml" -->
 ## Inputs
 
 | name | description | required | default |
@@ -26,17 +25,12 @@ This action shares a file in Google Drive.
 | `transfer_ownership` | <p>Whether to transfer ownership to the specified user and downgrade the current owner to a writer.</p> | `false` | `""` |
 | `send_notification_email` | <p>Whether to send a notification email when sharing to users or groups.</p> | `false` | `""` |
 | `email_message` | <p>A plain text custom message to include in the notification email.</p> | `false` | `""` |
-<!-- action-docs-inputs source="action.yml" -->
 
-<!-- action-docs-outputs source="action.yml" -->
 
-<!-- action-docs-outputs source="action.yml" -->
 
-<!-- action-docs-runs source="action.yml" -->
 ## Runs
 
 This action is a `node20` action.
-<!-- action-docs-runs source="action.yml" -->
 
 ## Example usage
 
