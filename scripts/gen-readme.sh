@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-INSERT='<!-- INSERT -->'
-sed "/${INSERT}/r "<(npx action-docs --no-banner | sed 1,3d)  scripts/README_template.md |\
-  sed -e "s/${INSERT}//" |\
-  sed -e "s/:CUR_VER$/$(jq < package.json -r .version)/" > README.md
+cp scripts/README_template.md README.md
+npx action-docs --no-banner  -u README.md
+sed -e "s/:CUR_VER$/$(jq < package.json -r .version)/" -i README.md
