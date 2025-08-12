@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test modiules
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test main
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Cache node modules
         uses: actions/cache@v4
