@@ -28,7 +28,7 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.1",
-    "guratan": "^0.7.0"
+    "guratan": "^0.8.1"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
