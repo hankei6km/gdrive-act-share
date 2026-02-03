@@ -18,11 +18,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run clean && ncc build src/index.ts --license licenses.txt && rimraf dist/test && mv dist/src/* dist/ && rimraf dist/src && mv dist/index.js dist/index.mjs && npm run gen-readme",
+    "build": "npm run clean && ncc build src/index.ts --license licenses.txt && rm -r dist/test && mv dist/src/* dist/ && rm -r dist/src && mv dist/index.js dist/index.mjs && npm run gen-readme",
     "gen-readme": "bash scripts/gen-readme.sh",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:build": "npm run build && npm run test",
-    "clean": "rimraf \"dist/*\"",
+    "clean": "test ! -d dist || rm -r dist",
     "upgrade-interactive": "npm-check --update"
   },
   "dependencies": {
@@ -36,7 +36,6 @@
     "@vercel/ncc": "^0.38.4",
     "action-docs": "^2.5.1",
     "jest": "^30.2.0",
-    "rimraf": "^6.1.2",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
