@@ -28,7 +28,7 @@
     "upgrade-interactive": "npm-check --update"
   },
   "dependencies": {
-    "@actions/core": "^2.0.2",
+    "@actions/core": "^3.0.0",
     "@actions/github": "^9.0.0",
     "guratan": "^0.8.3"
   },
