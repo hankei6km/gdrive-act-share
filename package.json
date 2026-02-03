@@ -18,7 +18,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run clean && ncc build src/index.ts --license licenses.txt && rm -r dist/test && mv dist/src/* dist/ && rm -r dist/src && mv dist/index.js dist/index.mjs && npm run gen-readme",
+    "prebuild": "npm run clean",
+    "build": "node esbuild.config.mjs",
+    "postbuild": "npm run gen-readme",
     "gen-readme": "bash scripts/gen-readme.sh",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "test:build": "npm run build && npm run test",
@@ -31,10 +33,11 @@
     "guratan": "^0.8.1"
   },
   "devDependencies": {
+    "@hankei6km/files-to-licenses": "^0.1.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^16.11.34",
-    "@vercel/ncc": "^0.38.4",
     "action-docs": "^2.5.1",
+    "esbuild": "0.27.2",
     "jest": "^30.2.0",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
