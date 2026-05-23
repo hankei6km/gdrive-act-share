@@ -30,7 +30,7 @@
   "dependencies": {
     "@actions/core": "^3.0.1",
     "@actions/github": "^9.1.1",
-    "guratan": "^0.8.4"
+    "guratan": "^0.8.5"
   },
   "devDependencies": {
     "@hankei6km/files-to-licenses": "^0.1.1",
