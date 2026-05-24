@@ -57,7 +57,7 @@ inputs:
 #  file_id:
 #    description: 'The ID of the file that is sended into Google Drive'
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'dist/index.mjs'
 branding:
   icon: 'users'

@@ -30,7 +30,7 @@ This action shares a file in Google Drive.
 
 ## Runs
 
-This action is a `node20` action.
+This action is a `node24` action.
 
 ## Example usage
 
