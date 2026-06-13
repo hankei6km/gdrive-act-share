@@ -37,7 +37,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^16.11.34",
     "action-docs": "^2.5.1",
-    "esbuild": "0.28.0",
+    "esbuild": "0.28.1",
     "jest": "^30.4.2",
     "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
